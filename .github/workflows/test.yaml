@@ -1,0 +1,16 @@
+name: Test ProblemMatchers
+
+on:
+    pull_request:
+        paths:
+            - '.github/workflows/**'
+        types: [ opened, synchronize, reopened ]
+
+jobs:
+    test_matchers:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Setup PHP
+              uses: shivammathur/setup-php@v2
+              with:
+                  php-version: '8.1'
