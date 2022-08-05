@@ -1,0 +1,22 @@
+name: problemMatcher
+
+proxy:
+    api:
+        - problem-matcher.lndo.site
+services:
+    api:
+        type: php:custom
+        overrides:
+            image: lando/php:8.1-apache-4
+            build:
+                context: ./
+                dockerfile: Dockerfile.custom
+        via: apache
+        webroot: public
+        composer_version: 2-latest
+        ssl: true
+        xdebug: true
+        build:
+            - composer self-update
+            - composer install --no-progress --prefer-dist --optimize-autoloader --ansi
+            - composer install --working-dir=tools/php-cs-fixer --no-progress --prefer-dist --optimize-autoloader --ansi --no-suggest
