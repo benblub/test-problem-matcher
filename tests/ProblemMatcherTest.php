@@ -7,4 +7,10 @@ class ProblemMatcherTest extends \PHPUnit\Framework\TestCase
         // just fail here :)
         $this->assertTrue(false);
     }
+
+    public function anotherFail()
+    {
+        // just fail here :)
+        $this->assertFalse(true);
+    }
 }
