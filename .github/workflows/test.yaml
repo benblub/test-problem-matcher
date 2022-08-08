@@ -33,10 +33,3 @@ jobs:
               run: |
                 php vendor/bin/phpunit --coverage-clover coverage.xml
                   - name: Create comment
-            - uses: peter-evans/create-or-update-comment@v2
-              with:
-                issue-number: 1
-                edit-mode: replace
-                body: |
-                  show here coverage report!
-                reactions: '+1'
