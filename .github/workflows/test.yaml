@@ -35,7 +35,7 @@ jobs:
                 php vendor/bin/phpunit --coverage-text=coverage.txt --configuration phpunit.xml
             - name: Get phpunit coverage percentage for Badge
               id: percentage
-              run: PERCENTAGE=$(php coverage.php) >> $GITHUB_ENV
+              run: php coverage.php >> $GITHUB_ENV
             - name: Create Awesome Badge
               uses: schneegans/dynamic-badges-action@v1.4.0
               with:
@@ -43,7 +43,7 @@ jobs:
                 gistID: ddfa03af31ea591f2412a2694701466e
                 filename: test.json
                 label: Foo
-                message: "${{ env.PERCENTAGE }}"
+                message: "${{ env.percentage }}"
                 color: green
             - name: Generate code coverage image
               id: do-stuff # This is referred to below when fetching output
