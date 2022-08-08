@@ -33,8 +33,10 @@ jobs:
             - name: Run Tests
               run: |
                 php vendor/bin/phpunit --coverage-text=coverage.txt --configuration phpunit.xml
-            - name: Outout dir
-              run: ls -la
+            - name: phpunit-coverage-badge
+              uses: timkrase/phpunit-coverage-badge@v1.2.0
+              with:
+                push_badge: true
             - name: Generate code coverage image
               id: do-stuff # This is referred to below when fetching output
               run: php generate-code-coverage-image.php
