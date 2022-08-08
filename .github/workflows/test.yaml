@@ -33,4 +33,3 @@ jobs:
             - name: Run Tests
               run: |
                 php vendor/bin/phpunit --coverage-clover coverage.xml --configuration phpunit.xml
-                  - name: Create comment
