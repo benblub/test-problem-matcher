@@ -2,24 +2,59 @@ name: Test ProblemMatchers
 
 on:
     pull_request:
-        paths:
-            - '.github/workflows/**'
-        types: [ opened, synchronize, reopened ]
 
 jobs:
     test_matchers:
         runs-on: ubuntu-latest
-        defaults:
-            run:
-                working-directory: ./
         steps:
+            - name: Checkout
+              uses: actions/checkout@v3
             - name: Setup PHP
               uses: shivammathur/setup-php@v2
               with:
                   php-version: '8.1'
-            -   name: Install Composer dependencies
-                run: |
-                    composer install --no-progress --prefer-dist --optimize-autoloader
+                  coverage: xdebug
+            - name: Setup problem matchers for PHPUnit
+              run: echo "::add-matcher::${{ runner.tool_cache }}/phpunit.json"
+            - name: Validate composer.json and composer.lock
+              run: composer validate --strict
+            - name: Get composer cache directory
+              id: composer-cache
+              run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+
+            - name: Cache dependencies
+              uses: actions/cache@v2
+              with:
+                path: ${{ steps.composer-cache.outputs.dir }}
+                key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+                restore-keys: ${{ runner.os }}-composer-
+            - name: Install Composer dependencies
+              run: composer install --no-progress --prefer-dist --optimize-autoloader
             - name: Run Tests
               run: |
-                php vendor/bin/phpunit       
+                php vendor/bin/phpunit --coverage-text=coverage.txt --configuration phpunit.xml
+            - name: Get phpunit coverage percentage for Badge
+              id: percentage
+              run: php coverage.php
+            - name: Create Awesome Badge
+              uses: schneegans/dynamic-badges-action@v1.4.0
+              with:
+                auth: ${{ secrets.GIST_SECRET }}
+                gistID: ddfa03af31ea591f2412a2694701466e
+                filename: test.json
+                label: coverage
+                message: '${{ steps.percentage.outputs.var }}'
+                color: green
+            - name: Generate code coverage image
+              id: do-stuff # This is referred to below when fetching output
+              run: php generate-code-coverage-image.php
+            - uses: actions/github-script@v3
+              with:
+                github-token: ${{secrets.GITHUB_TOKEN}}
+                script: |
+                  github.issues.createComment({
+                    issue_number: context.issue.number,
+                    owner: context.repo.owner,
+                    repo: context.repo.repo,
+                    body: '${{ steps.do-stuff.outputs.var }}'
+                  })
