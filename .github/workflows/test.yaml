@@ -38,14 +38,13 @@ jobs:
             - name: Generate code coverage image
               id: do-stuff # This is referred to below when fetching output
               run: php generate-code-coverage-image.php
-            - name: Add comment to PR
-              env:
-                URL: ${{ github.event.pull_request.comments_url }}
-                GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-              run: |
-                curl \
-                  -X POST \
-                  $URL \
-                  -H "Content-Type: application/json" \
-                  -H "Authorization: token $GITHUB_TOKEN" \
-                  --data '{ "body": "Ein Test: ${{ steps.do-stuff.outputs.var }}" }'
+            - uses: actions/github-script@v3
+              with:
+                github-token: ${{secrets.GITHUB_TOKEN}}
+                script: |
+                  github.issues.createComment({
+                    issue_number: context.issue.number,
+                    owner: context.repo.owner,
+                    repo: context.repo.repo,
+                    body: 'Ein Test: ${{ steps.do-stuff.outputs.var }}'
+                  })
