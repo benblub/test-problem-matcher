@@ -1,10 +1,9 @@
-<?= sprintf('::set-output name=var::%s', json_encode([
-    [
-        'id' => 'bar',
-        'name' => 'foo',
-    ],
-    [
-        'id' => 'bar2',
-        'name' => 'foo2',
-    ],
-]));
+<?php
+
+if (file_exists('coverage.xml')) {
+    $xml = simplexml_load_file('coverage.xml');
+
+    echo $xml->asXML();
+} else {
+    exit('Konnte coverage.xml nicht öffnen.');
+}
