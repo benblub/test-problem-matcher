@@ -14,4 +14,4 @@ if (0 === $coveredStatements) {
 }
 
 
-echo $percentageString;
+print_r($percentageString);
