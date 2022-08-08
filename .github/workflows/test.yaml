@@ -42,7 +42,7 @@ jobs:
                 gistID: ddfa03af31ea591f2412a2694701466e
                 filename: test.json
                 label: Hello
-                message: $PERCENTAGE
+                message: ${{ PERCENTAGE }}
                 color: green
             - name: Generate code coverage image
               id: do-stuff # This is referred to below when fetching output
