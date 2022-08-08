@@ -6,7 +6,6 @@ on:
 jobs:
     test_matchers:
         runs-on: ubuntu-latest
-        if: "!contains(github.event.head_commit.message, '[ci skip]')"
         steps:
             - name: Checkout
               uses: actions/checkout@v3
@@ -34,11 +33,15 @@ jobs:
             - name: Run Tests
               run: |
                 php vendor/bin/phpunit --coverage-text=coverage.txt --configuration phpunit.xml
-            - name: phpunit-coverage-badge
-              uses: timkrase/phpunit-coverage-badge@v1.2.0
+            - name: Create Awesome Badge
+              uses: schneegans/dynamic-badges-action@v1.4.0
               with:
-                push_badge: true
-                repo_token: ${{ secrets.GITHUB_TOKEN }}
+                auth: ${{ secrets.GIST_SECRET }}
+                gistID: ddfa03af31ea591f2412a2694701466e
+                filename: test.json
+                label: Hello
+                message: World
+                color: green
             - name: Generate code coverage image
               id: do-stuff # This is referred to below when fetching output
               run: php generate-code-coverage-image.php
