@@ -5,12 +5,12 @@ class ProblemMatcherTest extends \PHPUnit\Framework\TestCase
     public function testMatcher()
     {
         // just fail here :)
-        $this->assertTrue(false);
+        $this->assertTrue(true);
     }
 
     public function testAnotherFail()
     {
         // just fail here :)
-        $this->assertFalse(true);
+        $this->assertFalse(false);
     }
 }

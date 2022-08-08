@@ -29,16 +29,14 @@ jobs:
                 restore-keys: ${{ runner.os }}-composer-
             - name: Install Composer dependencies
               run: composer install --no-progress --prefer-dist --optimize-autoloader
-            - uses: actions/github-script@v2
-              with:
-                github-token: ${{secrets.GITHUB_TOKEN}}
-                script: |
-                  github.issues.createComment({
-                    issue_number: context.issue.number,
-                    owner: context.repo.owner,
-                    repo: context.repo.repo,
-                    body: '👋 Thanks for reporting!'
-                  })
             - name: Run Tests
               run: |
                 php vendor/bin/phpunit tests --coverage-clover coverage.xml
+                  - name: Create comment
+            - uses: peter-evans/create-or-update-comment@v2
+              with:
+                issue-number: 1
+                edit-mode: replace
+                body: |
+                  show here coverage report!
+                reactions: '+1'
