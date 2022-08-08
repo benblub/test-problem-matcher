@@ -1,6 +1,7 @@
 {
   "name": "benblub/test-problem-matcher",
   "description": "Just some test repo",
+  "license": "MIT",
   "autoload": {
     "classmap": [
       "src/"
