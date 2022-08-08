@@ -42,7 +42,7 @@ jobs:
                 URL: ${{ github.event.issue.comments_url }}
                 GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
               run: |
-                php CLOVER=$(generate-code-coverage-image.php)
+                $CLOVER = php generate-code-coverage-image.php
                 curl \
                   -X POST \
                   $URL \
