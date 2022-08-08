@@ -1,4 +1,6 @@
 {
+  "name": "benblub/test-problem-matcher",
+  "description": "Just some test repo",
   "autoload": {
     "classmap": [
       "src/"
