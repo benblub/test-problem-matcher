@@ -11,6 +11,8 @@ jobs:
               uses: shivammathur/setup-php@v2
               with:
                   php-version: '8.1'
+            - name: Check location
+              run: ls -la
             -   name: Install Composer dependencies
                 run: |
                     composer install --no-progress --prefer-dist --optimize-autoloader
