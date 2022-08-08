@@ -37,6 +37,7 @@ jobs:
               uses: timkrase/phpunit-coverage-badge@v1.2.0
               with:
                 push_badge: true
+                repo_token: ${{ secrets.GITHUB_TOKEN }}
             - name: Generate code coverage image
               id: do-stuff # This is referred to below when fetching output
               run: php generate-code-coverage-image.php
