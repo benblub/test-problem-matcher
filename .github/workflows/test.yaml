@@ -4,7 +4,6 @@ on:
     pull_request:
         paths:
             - '.github/workflows/**'
-        types: [ opened, synchronize, reopened ]
 
 jobs:
     test_matchers:
