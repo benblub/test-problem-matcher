@@ -6,9 +6,6 @@ on:
 jobs:
     test_matchers:
         runs-on: ubuntu-latest
-        defaults:
-            run:
-                working-directory: ${{ github.workspace }}
         steps:
             - uses: actions/checkout@v2
             - name: Setup PHP
