@@ -8,14 +8,13 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - name: Setup PHP
-              uses: shivammathur/setup-php@v2
+              uses: shivammathur/setup-php@v3
               with:
                   php-version: '8.1'
-            - name: Check location
-              run: ls -la
-            -   name: Install Composer dependencies
-                run: |
-                    composer install --no-progress --prefer-dist --optimize-autoloader
+            - name: Validate composer.json and composer.lock
+              run: composer validate --strict
+            - name: Install Composer dependencies
+              run: composer install --no-progress --prefer-dist --optimize-autoloader
             - name: Run Tests
               run: |
                 php vendor/bin/phpunit       
