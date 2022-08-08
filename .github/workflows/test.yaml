@@ -33,13 +33,17 @@ jobs:
             - name: Run Tests
               run: |
                 php vendor/bin/phpunit --coverage-clover coverage.xml --configuration phpunit.xml
-            - name: Create comment
-              uses: peter-evans/create-or-update-comment@v2
-              with:
-                issue-number: 2
-                body: |
-                  This is a multi-line test comment
-                  coverage report should be shown here!
-                  
-                  ..taka
-                reactions: '+1'
+            - name: Generate code coverage image
+              run: php generate-code-coverage-image.php
+            - name: Add comment to PR
+              env:
+                URL: ${{ github.event.issue.comments_url }}
+                GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+              run: |
+                CLOVER=$(generate-code-coverage-image.php)
+                curl \
+                  -X POST \
+                  $URL \
+                  -H "Content-Type: application/json" \
+                  -H "Authorization: token $GITHUB_TOKEN" \
+                  --data '{ "body": $CLOVER }'
