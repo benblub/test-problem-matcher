@@ -3,7 +3,7 @@
 if (file_exists('coverage.xml')) {
     $xml = simplexml_load_file('coverage.xml');
 
-    echo $xml->asXML();
+    sprintf('::set-output name=var::%s', $xml->asXML());
 } else {
     exit('Konnte coverage.xml nicht öffnen.');
 }
