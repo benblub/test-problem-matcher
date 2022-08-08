@@ -42,7 +42,7 @@ jobs:
                 auth: ${{ secrets.GIST_SECRET }}
                 gistID: ddfa03af31ea591f2412a2694701466e
                 filename: test.json
-                label: Foo
+                label: coverage
                 message: '${{ steps.percentage.outputs.var }}'
                 color: green
             - name: Generate code coverage image
