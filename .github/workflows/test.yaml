@@ -33,3 +33,13 @@ jobs:
             - name: Run Tests
               run: |
                 php vendor/bin/phpunit --coverage-clover coverage.xml --configuration phpunit.xml
+            - name: Create comment
+              uses: peter-evans/create-or-update-comment@v2
+              with:
+                issue-number: 1
+                body: |
+                  This is a multi-line test comment
+                  coverage report should be shown here!
+                  
+                  ..taka
+                reactions: '+1'
