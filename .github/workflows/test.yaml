@@ -9,9 +9,6 @@ on:
 jobs:
     test_matchers:
         runs-on: ubuntu-latest
-        defaults:
-            run:
-                working-directory: ./
         steps:
             - name: Setup PHP
               uses: shivammathur/setup-php@v2
