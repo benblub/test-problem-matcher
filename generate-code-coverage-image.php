@@ -1,6 +1,6 @@
-<?php
+<?=
 
-if (file_exists('coverage.xml')) {
+
     $xml = simplexml_load_file('coverage.xml');
 
     sprintf('::set-output name=var::%s', json_encode([
@@ -13,4 +13,3 @@ if (file_exists('coverage.xml')) {
             'name' => 'foo2',
         ],
     ]));
-}
