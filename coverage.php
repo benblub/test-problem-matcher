@@ -12,6 +12,5 @@ if (0 === $coveredStatements) {
     $percentage = round(min(1, $coveredStatements / $totalStatements) * 100);
     $percentageString = $percentage . '%';
 }
-
-
-print_r($percentageString);
+?>
+<?= sprintf('::set-output name=var::%s', json_encode($percentageString));
